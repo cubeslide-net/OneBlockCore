@@ -55,7 +55,7 @@ public final class OneBlockCore extends JavaPlugin {
         } else {
             board = boards.get(player.getUniqueId());
         }
-        board.updateLines(Arrays.asList("", "§eOB Count", "§7" + PlaceholderAPI.setPlaceholders(player, "%aoneblock_my_island_count%"), "", "§eBlocks until", "§enext Phase", "§7" + PlaceholderAPI.setPlaceholders(player, "%aoneblock_my_island_blocks_to_next_phase%"), "", "§eOnline", "§7" + Bukkit.getOnlinePlayers().size()));
+        board.updateLines(Arrays.asList("§8| §5", "§8| §eOB Count", "§8| §7" + PlaceholderAPI.setPlaceholders(player, "%aoneblock_my_island_count%"), "§8| §7", "§8| §eBlocks until", "§8| §enext Phase", "§8| §7" + PlaceholderAPI.setPlaceholders(player, "%aoneblock_my_island_blocks_to_next_phase%"), "§8| §5", "§8| §eOnline", "§8| §7" + Bukkit.getOnlinePlayers().size()));
     }
 
     public static HashMap<UUID, FastBoard> getBoards() {
