@@ -20,9 +20,8 @@ public class PlayerEventListener implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         final Player player = event.getPlayer();
-
+        player.teleport(LocationUtils.spawnLocation());
         if(!player.hasPlayedBefore()) {
-            player.teleport(LocationUtils.spawnLocation());
             Bukkit.broadcastMessage(OneBlockCore.getPREFIX() + "§aThe Player §2" + player.getName() + " is playing OneBlock for the first time! §7[§6#§e" + Bukkit.getOfflinePlayers().length + "§7]");
         }
 

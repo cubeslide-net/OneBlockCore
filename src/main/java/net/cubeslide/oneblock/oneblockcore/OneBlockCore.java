@@ -19,7 +19,7 @@ public final class OneBlockCore extends JavaPlugin {
 
     private static OneBlockCore instance;
     private static HashMap<UUID, FastBoard> boards;
-    private static final String PREFIX = "§7[§3§lOneBlock§7] ";
+    private static final String PREFIX = "§3OneBlock §8» §7";
     @Override
     public void onEnable() {
         final PluginManager pluginManager = getServer().getPluginManager();
@@ -51,11 +51,11 @@ public final class OneBlockCore extends JavaPlugin {
         if (!boards.containsKey(player.getUniqueId())) {
             board = new FastBoard(player);
             boards.put(player.getUniqueId(), board);
-            board.updateTitle("§6§lOneBlock");
+            board.updateTitle("§8> §bOneBlock §8<");
         } else {
             board = boards.get(player.getUniqueId());
         }
-        board.updateLines(Arrays.asList("§8| §5", "§8| §eOB Count", "§8| §7" + PlaceholderAPI.setPlaceholders(player, "%aoneblock_my_island_count%"), "§8| §7", "§8| §eBlocks until", "§8| §enext Phase", "§8| §7" + PlaceholderAPI.setPlaceholders(player, "%aoneblock_my_island_blocks_to_next_phase%"), "§8| §5", "§8| §eOnline", "§8| §7" + Bukkit.getOnlinePlayers().size()));
+        board.updateLines(Arrays.asList("§8| §5", "§8| §3OB Count", "§8| §7 " + PlaceholderAPI.setPlaceholders(player, "%aoneblock_my_island_count%"), "§8| §7", "§8| §3Blocks until", "§8| §3next Phase", "§8| §7 " + PlaceholderAPI.setPlaceholders(player, "%aoneblock_my_island_blocks_to_next_phase%"), "§8| §5", "§8| §3Online", "§8| §7 " + Bukkit.getOnlinePlayers().size()));
     }
 
     public static HashMap<UUID, FastBoard> getBoards() {
