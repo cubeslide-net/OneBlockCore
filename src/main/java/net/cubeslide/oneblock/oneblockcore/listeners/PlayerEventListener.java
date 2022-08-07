@@ -12,6 +12,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 public class PlayerEventListener implements Listener {
@@ -30,6 +31,17 @@ public class PlayerEventListener implements Listener {
     }
 
     @EventHandler
+    public void onMove(PlayerMoveEvent event) {
+        final Player player = event.getPlayer();
+
+        if(player.getWorld().getName().equalsIgnoreCase("world")) {
+            if(player.getLocation().getY() < 20) {
+                player.teleport(LocationUtils.spawnLocation());
+            }
+        }
+    }
+
+    @EventHandler
     public void onQuit(PlayerQuitEvent event) {
         event.setQuitMessage("");
         OneBlockCore.getInstance().getBoards().remove(event.getPlayer().getUniqueId());
@@ -42,7 +54,7 @@ public class PlayerEventListener implements Listener {
 
         if(player.getWorld().getName().equalsIgnoreCase("world")) {
             final Block block = event.getClickedBlock();
-            if(block.getType().isInteractable()) {
+            if(block.getType().isInteractable() && block.getType() != Material.ENDER_CHEST) {
                 event.setCancelled(true);
             }
         }
