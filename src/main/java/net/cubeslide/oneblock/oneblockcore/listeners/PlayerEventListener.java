@@ -12,6 +12,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 public class PlayerEventListener implements Listener {
@@ -27,6 +28,17 @@ public class PlayerEventListener implements Listener {
 
         event.setJoinMessage("");
         OneBlockCore.getInstance().sendScoreboard(player);
+    }
+
+    @EventHandler
+    public void onMove(PlayerMoveEvent event) {
+        final Player player = event.getPlayer();
+
+        if(player.getWorld().getName().equalsIgnoreCase("world")) {
+            if(player.getLocation().getY() < 20) {
+                player.teleport(LocationUtils.spawnLocation());
+            }
+        }
     }
 
     @EventHandler
