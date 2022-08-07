@@ -54,7 +54,7 @@ public class PlayerEventListener implements Listener {
 
         if(player.getWorld().getName().equalsIgnoreCase("world")) {
             final Block block = event.getClickedBlock();
-            if(block.getType().isInteractable()) {
+            if(block.getType().isInteractable() && block.getType() != Material.ENDER_CHEST) {
                 event.setCancelled(true);
             }
         }
