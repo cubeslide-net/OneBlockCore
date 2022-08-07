@@ -1,0 +1,7 @@
+name: OneBlockCore
+version: '${project.version}'
+main: net.cubeslide.oneblock.oneblockcore.OneBlockCore
+api-version: 1.19
+authors: [ Lara ]
+commands:
+  spawn:
