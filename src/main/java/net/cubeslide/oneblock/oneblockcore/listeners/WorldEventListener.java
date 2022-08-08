@@ -14,13 +14,13 @@ public class WorldEventListener implements Listener {
         final Player player = event.getPlayer();
 
 
-        if(!player.getWorld().getName().equalsIgnoreCase("world")) {
+        if (!player.getWorld().getName().equalsIgnoreCase("world")) {
             OneBlockCore.getInstance().sendScoreboard(player);
         }
 
-        if(player.hasPermission("OneBlockCore.spawnEdit")) return;
+        if (player.hasPermission("OneBlockCore.spawnEdit")) return;
 
-        if(player.getWorld().getName().equalsIgnoreCase("world")) {
+        if (player.getWorld().getName().equalsIgnoreCase("world")) {
             event.setCancelled(true);
         }
     }
@@ -29,9 +29,9 @@ public class WorldEventListener implements Listener {
     public void onPlace(BlockPlaceEvent event) {
         final Player player = event.getPlayer();
 
-        if(player.hasPermission("OneBlockCore.spawnEdit")) return;
+        if (player.hasPermission("OneBlockCore.spawnEdit")) return;
 
-        if(player.getWorld().getName().equalsIgnoreCase("world")) {
+        if (player.getWorld().getName().equalsIgnoreCase("world")) {
             event.setCancelled(true);
         }
     }

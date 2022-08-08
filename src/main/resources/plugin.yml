@@ -5,3 +5,12 @@ api-version: 1.19
 authors: [ Lara ]
 commands:
   spawn:
+  vanish:
+    permission: OneBlockCore.vanish
+  tpa:
+  tpaccept:
+    aliases: tpyes
+  tpdeny:
+    aliases: tpno
+  visit:
+    permission: OneBlockCore.visit.others
