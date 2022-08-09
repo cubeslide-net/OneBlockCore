@@ -2,10 +2,10 @@ package net.cubeslide.oneblock.oneblockcore.listeners;
 
 import net.cubeslide.oneblock.oneblockcore.OneBlockCore;
 import net.cubeslide.oneblock.oneblockcore.utils.LocationUtils;
+import net.cubeslide.oneblock.oneblockcore.utils.MessageHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -21,19 +21,22 @@ public class PlayerEventListener implements Listener {
     public void onJoin(PlayerJoinEvent event) {
         final Player player = event.getPlayer();
         player.teleport(LocationUtils.spawnLocation());
-        if(!player.hasPlayedBefore()) {
-            Bukkit.broadcastMessage(OneBlockCore.getPREFIX() + "§aThe Player §2" + player.getName() + " is playing OneBlock for the first time! §7[§6#§e" + Bukkit.getOfflinePlayers().length + "§7]");
+        if (!player.hasPlayedBefore()) {
+            Bukkit.broadcastMessage(MessageHandler.getPrefix() + "§aThe Player §2" + player.getName() + " is playing OneBlock for the first time! §7[§6#§e" + Bukkit.getOfflinePlayers().length + "§7]");
         }
 
         event.setJoinMessage("");
+        Bukkit.getOnlinePlayers().forEach(current -> {
+            OneBlockCore.getInstance().sendScoreboard(current);
+        });
     }
 
     @EventHandler
     public void onMove(PlayerMoveEvent event) {
         final Player player = event.getPlayer();
 
-        if(player.getWorld().getName().equalsIgnoreCase("world")) {
-            if(player.getLocation().getY() < 20) {
+        if (player.getWorld().getName().equalsIgnoreCase("world")) {
+            if (player.getLocation().getY() < 20) {
                 player.teleport(LocationUtils.spawnLocation());
             }
         }
@@ -42,7 +45,11 @@ public class PlayerEventListener implements Listener {
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
         event.setQuitMessage("");
-        OneBlockCore.getInstance().getBoards().remove(event.getPlayer().getUniqueId());
+        OneBlockCore.getBoards().remove(event.getPlayer().getUniqueId());
+
+        Bukkit.getOnlinePlayers().forEach(current -> {
+            OneBlockCore.getInstance().sendScoreboard(current);
+        });
     }
 
 
@@ -50,9 +57,10 @@ public class PlayerEventListener implements Listener {
     public void onInteract(PlayerInteractEvent event) {
         final Player player = event.getPlayer();
 
-        if(player.getWorld().getName().equalsIgnoreCase("world")) {
+        if (player.getWorld().getName().equalsIgnoreCase("world")) {
             final Block block = event.getClickedBlock();
-            if(block.getType().isInteractable() && block.getType() != Material.ENDER_CHEST) {
+            if(block == null || block.getType() == Material.AIR) return;
+            if (block.getType().isInteractable() && block.getType() != Material.ENDER_CHEST) {
                 event.setCancelled(true);
             }
         }
@@ -60,15 +68,14 @@ public class PlayerEventListener implements Listener {
 
     @EventHandler
     public void onDamage(EntityDamageEvent event) {
-        if(event.getEntity() instanceof Player) {
+        if (event.getEntity() instanceof Player) {
             final Player player = (Player) event.getEntity();
 
-            if(player.getWorld().getName().equalsIgnoreCase("world")) {
-                    event.setCancelled(true);
+            if (player.getWorld().getName().equalsIgnoreCase("world")) {
+                event.setCancelled(true);
             }
         }
     }
-
 
 
 }
