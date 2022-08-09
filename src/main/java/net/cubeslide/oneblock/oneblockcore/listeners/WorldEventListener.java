@@ -13,11 +13,6 @@ public class WorldEventListener implements Listener {
     public void onBreak(BlockBreakEvent event) {
         final Player player = event.getPlayer();
 
-
-        if(!player.getWorld().getName().equalsIgnoreCase("world")) {
-            OneBlockCore.getInstance().sendScoreboard(player);
-        }
-
         if(player.hasPermission("OneBlockCore.spawnEdit")) return;
 
         if(player.getWorld().getName().equalsIgnoreCase("world")) {

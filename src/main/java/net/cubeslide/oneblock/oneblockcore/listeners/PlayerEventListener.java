@@ -26,7 +26,6 @@ public class PlayerEventListener implements Listener {
         }
 
         event.setJoinMessage("");
-        OneBlockCore.getInstance().sendScoreboard(player);
     }
 
     @EventHandler

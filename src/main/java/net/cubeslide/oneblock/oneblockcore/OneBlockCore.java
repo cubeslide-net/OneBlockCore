@@ -12,6 +12,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Scoreboard;
 
 public final class OneBlockCore extends JavaPlugin {
@@ -31,9 +32,16 @@ public final class OneBlockCore extends JavaPlugin {
 
         getCommand("spawn").setExecutor(new SpawnCommand());
 
-        for(Player player : Bukkit.getOnlinePlayers()) {
-            sendScoreboard(player);
-        }
+
+
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                for(Player player : Bukkit.getOnlinePlayers()) {
+                    sendScoreboard(player);
+                }
+            }
+        }.runTaskTimerAsynchronously(getInstance(), 20, 20);
 
     }
 
@@ -55,7 +63,21 @@ public final class OneBlockCore extends JavaPlugin {
         } else {
             board = boards.get(player.getUniqueId());
         }
-        board.updateLines(Arrays.asList("§8| §5", "§8| §3OB Count", "§8| §7 " + PlaceholderAPI.setPlaceholders(player, "%aoneblock_my_island_count%"), "§8| §7", "§8| §3Blocks until", "§8| §3next Phase", "§8| §7 " + PlaceholderAPI.setPlaceholders(player, "%aoneblock_my_island_blocks_to_next_phase%"), "§8| §5", "§8| §3Online", "§8| §7 " + Bukkit.getOnlinePlayers().size()));
+        board.updateLines(Arrays.asList("§8| §5",
+            "§8| §3OB Count",
+            "§8| §7 " + PlaceholderAPI.setPlaceholders(player,
+                "%aoneblock_visited_island_count%"),
+            "§8| §7",
+            "§8| §3Blocks to",
+            "§8| §3next Phase",
+            "§8| §7 " + PlaceholderAPI.setPlaceholders(player,
+                "%aoneblock_visited_island_blocks_to_next_phase%"),
+            "§8| §7",
+            "§8| §3Next Phase",
+            "§8| §7 " + PlaceholderAPI.setPlaceholders(player, "%aoneblock_visited_island_next_phase%"),
+            "§8| §5",
+            "§8| §3Online",
+            "§8| §7 " + Bukkit.getOnlinePlayers().size()));
     }
 
     public static HashMap<UUID, FastBoard> getBoards() {
