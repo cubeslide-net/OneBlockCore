@@ -1,5 +1,7 @@
 package net.cubeslide.oneblock.oneblockcore.listeners;
 
+import fr.mrmicky.fastboard.FastBoard;
+import java.util.UUID;
 import net.cubeslide.oneblock.oneblockcore.OneBlockCore;
 import net.cubeslide.oneblock.oneblockcore.utils.LocationUtils;
 import net.cubeslide.oneblock.oneblockcore.utils.MessageHandler;
@@ -26,9 +28,6 @@ public class PlayerEventListener implements Listener {
         }
 
         event.setJoinMessage("");
-        Bukkit.getOnlinePlayers().forEach(current -> {
-            OneBlockCore.getInstance().sendScoreboard(current);
-        });
     }
 
     @EventHandler
@@ -44,12 +43,12 @@ public class PlayerEventListener implements Listener {
 
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
+        final Player player = event.getPlayer();
+        final UUID uuid = player.getUniqueId();
         event.setQuitMessage("");
-        OneBlockCore.getBoards().remove(event.getPlayer().getUniqueId());
-
-        Bukkit.getOnlinePlayers().forEach(current -> {
-            OneBlockCore.getInstance().sendScoreboard(current);
-        });
+        FastBoard board = OneBlockCore.getInstance().getBoards().get(uuid);
+        board.delete();
+        OneBlockCore.getInstance().getBoards().remove(uuid);
     }
 
 

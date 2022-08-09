@@ -56,10 +56,6 @@ public final class OneBlockCore extends JavaPlugin {
                 }
             }
         }.runTaskTimerAsynchronously(getInstance(), 20, 20);
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            sendScoreboard(player);
-        }
-
     }
 
     @Override
@@ -78,18 +74,28 @@ public final class OneBlockCore extends JavaPlugin {
         }
         board.updateLines(Arrays.asList("§8| §5",
             "§8| §3OB Count",
-            "§8| §7 " + PlaceholderAPI.setPlaceholders(player,
+            "§8| §7 " + getPlaceholder(player,
                 "%aoneblock_visited_island_count%"),
             "§8| §7",
             "§8| §3Blocks to",
             "§8| §3next Phase",
-            "§8| §7 " + PlaceholderAPI.setPlaceholders(player,
+            "§8| §7 " + getPlaceholder(player,
                 "%aoneblock_visited_island_blocks_to_next_phase%"),
             "§8| §7",
             "§8| §3Next Phase",
-            "§8| §7 " + PlaceholderAPI.setPlaceholders(player, "%aoneblock_visited_island_next_phase%"),
+            "§8| §7 " + getPlaceholder(player, "%aoneblock_visited_island_next_phase%"),
             "§8| §5",
             "§8| §3Online",
             "§8| §7 " + Bukkit.getOnlinePlayers().size()));
     }
+
+    public String getPlaceholder(Player player, String placeholder) {
+        if(player.getWorld().getName().equalsIgnoreCase("world")) {
+            return "§7-";
+        } else {
+            return PlaceholderAPI.setPlaceholders(player, placeholder);
+        }
+    }
+
+
 }
