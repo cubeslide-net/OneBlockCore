@@ -5,7 +5,6 @@ import org.bukkit.Material;
 import org.bukkit.SkullType;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
-
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -17,32 +16,33 @@ import java.util.List;
 
 public class ItemBuilder {
 
-    public static final org.bukkit.inventory.ItemStack GRAY_GLASS = new ItemBuilder( Material.GRAY_STAINED_GLASS_PANE ).name( "§e" ).build();
-    public static final org.bukkit.inventory.ItemStack MAGENTA_GLASS = new ItemBuilder( Material.MAGENTA_STAINED_GLASS_PANE ).name( "§e" ).build();
-    public static final org.bukkit.inventory.ItemStack RED_GLASS = new ItemBuilder( Material.RED_STAINED_GLASS_PANE ).name( "§e" ).build();
-    public static final org.bukkit.inventory.ItemStack PURPLE_GLASS = new ItemBuilder( Material.PURPLE_STAINED_GLASS_PANE ).name( "§e" ).build();
-    public static final org.bukkit.inventory.ItemStack LIME_GLASS = new ItemBuilder( Material.LIME_STAINED_GLASS_PANE ).name( "§e" ).build();
-    public static final org.bukkit.inventory.ItemStack BLUE_GLASS = new ItemBuilder( Material.BLUE_STAINED_GLASS_PANE ).name( "§e" ).build();
-    public static final org.bukkit.inventory.ItemStack YELLOW_GLASS = new ItemBuilder( Material.YELLOW_STAINED_GLASS_PANE ).name( "§e" ).build();
-    public static final org.bukkit.inventory.ItemStack ORANGE_GLASS = new ItemBuilder( Material.ORANGE_STAINED_GLASS_PANE ).name( "§e" ).build();
-    public static final org.bukkit.inventory.ItemStack GLASS_GLASS = new ItemBuilder( Material.GLASS_PANE ).name( "§e" ).build();
-    public static final org.bukkit.inventory.ItemStack LIGHT_BLUE_GLASS = new ItemBuilder( Material.LIGHT_BLUE_STAINED_GLASS_PANE ).name( "§e" ).build();
-    public static final org.bukkit.inventory.ItemStack GREEN_GLASS = new ItemBuilder( Material.GREEN_STAINED_GLASS_PANE ).name( "§e" ).build();
-    public static final org.bukkit.inventory.ItemStack WHITE_GLASS = new ItemBuilder( Material.WHITE_STAINED_GLASS_PANE ).name( "§e" ).build();
-    public static final org.bukkit.inventory.ItemStack BROWN_GLASS = new ItemBuilder( Material.BROWN_STAINED_GLASS_PANE ).name( "§e" ).build();
-    public static final org.bukkit.inventory.ItemStack PREVIOUS_PAGE = new ItemBuilder( Material.PAPER ).name( "§cSeite zurück" ).build();
-    public static final org.bukkit.inventory.ItemStack NEXT_PAGE = new ItemBuilder( Material.PAPER ).name( "§cSeite vorwärts" ).build();
-
-    private org.bukkit.inventory.ItemStack is;
+    public static final ItemStack GRAY_GLASS = new ItemBuilder( Material.GRAY_STAINED_GLASS_PANE ).name( "§e" ).build();
+    public static final ItemStack MAGENTA_GLASS = new ItemBuilder( Material.MAGENTA_STAINED_GLASS_PANE ).name( "§e" ).build();
+    public static final ItemStack RED_GLASS = new ItemBuilder( Material.RED_STAINED_GLASS_PANE ).name( "§e" ).build();
+    public static final ItemStack PURPLE_GLASS = new ItemBuilder( Material.PURPLE_STAINED_GLASS_PANE ).name( "§e" ).build();
+    public static final ItemStack LIME_GLASS = new ItemBuilder( Material.LIME_STAINED_GLASS_PANE ).name( "§e" ).build();
+    public static final ItemStack BLUE_GLASS = new ItemBuilder( Material.BLUE_STAINED_GLASS_PANE ).name( "§e" ).build();
+    public static final ItemStack YELLOW_GLASS = new ItemBuilder( Material.YELLOW_STAINED_GLASS_PANE ).name( "§e" ).build();
+    public static final ItemStack ORANGE_GLASS = new ItemBuilder( Material.ORANGE_STAINED_GLASS_PANE ).name( "§e" ).build();
+    public static final ItemStack GLASS_GLASS = new ItemBuilder( Material.GLASS_PANE ).name( "§e" ).build();
+    public static final ItemStack LIGHT_BLUE_GLASS = new ItemBuilder( Material.LIGHT_BLUE_STAINED_GLASS_PANE ).name( "§e" ).build();
+    public static final ItemStack GREEN_GLASS = new ItemBuilder( Material.GREEN_STAINED_GLASS_PANE ).name( "§e" ).build();
+    public static final ItemStack WHITE_GLASS = new ItemBuilder( Material.WHITE_STAINED_GLASS_PANE ).name( "§e" ).build();
+    public static final ItemStack BROWN_GLASS = new ItemBuilder( Material.BROWN_STAINED_GLASS_PANE ).name( "§e" ).build();
+    public static final ItemStack PREVIOUS_PAGE = new ItemBuilder( Material.PAPER ).name( "§cSeite zurück" ).build();
+    public static final ItemStack NEXT_PAGE = new ItemBuilder( Material.PAPER ).name( "§cSeite vorwärts" ).build();
+    public static final ItemStack BARRIER = new ItemBuilder(Material.BARRIER).name("§c").build();
+    
+    private ItemStack is;
 
     public ItemBuilder(Material mat, int amount, int data) {
-        this.is = new org.bukkit.inventory.ItemStack(mat, amount, (short) data);
+        this.is = new ItemStack(mat, amount, (short) data);
     }
     public ItemBuilder(Material mat) {
-        this.is = new org.bukkit.inventory.ItemStack(mat);
+        this.is = new ItemStack(mat);
     }
 
-    public ItemBuilder(org.bukkit.inventory.ItemStack is) {
+    public ItemBuilder(ItemStack is) {
         this.is = is;
     }
 
@@ -179,7 +179,7 @@ public class ItemBuilder {
         return this;
     }
 
-    public org.bukkit.inventory.ItemStack build() {
+    public ItemStack build() {
         return this.is;
     }
 }
