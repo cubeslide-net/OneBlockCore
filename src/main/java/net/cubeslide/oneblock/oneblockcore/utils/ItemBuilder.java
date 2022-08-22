@@ -29,6 +29,7 @@ public class ItemBuilder {
     public static final ItemStack GREEN_GLASS = new ItemBuilder( Material.GREEN_STAINED_GLASS_PANE ).name( "§e" ).build();
     public static final ItemStack WHITE_GLASS = new ItemBuilder( Material.WHITE_STAINED_GLASS_PANE ).name( "§e" ).build();
     public static final ItemStack BROWN_GLASS = new ItemBuilder( Material.BROWN_STAINED_GLASS_PANE ).name( "§e" ).build();
+    public static final ItemStack CYAN_GLASS = new ItemBuilder( Material.CYAN_STAINED_GLASS ).name( "§e" ).build();
     public static final ItemStack PREVIOUS_PAGE = new ItemBuilder( Material.PAPER ).name( "§cSeite zurück" ).build();
     public static final ItemStack NEXT_PAGE = new ItemBuilder( Material.PAPER ).name( "§cSeite vorwärts" ).build();
     public static final ItemStack BARRIER = new ItemBuilder(Material.BARRIER).name("§c").build();
