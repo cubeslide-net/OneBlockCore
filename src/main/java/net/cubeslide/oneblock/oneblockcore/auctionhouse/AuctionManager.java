@@ -1,7 +1,5 @@
 package net.cubeslide.oneblock.oneblockcore.auctionhouse;
 
-import ch.luca.cubeslide.coinsapi.CoinsAPI;
-import net.cubeslide.oneblock.oneblockcore.OneBlockCore;
 import net.cubeslide.oneblock.oneblockcore.utils.ItemBuilder;
 import net.cubeslide.oneblock.oneblockcore.utils.ItemSerializer;
 import net.cubeslide.oneblock.oneblockcore.utils.Pagifier;
@@ -74,11 +72,11 @@ public class AuctionManager {
             }
             String time = getTime(item.getExpires());
             if(time.equalsIgnoreCase("Expired")) {
-                ItemStack itemStack = new ItemBuilder(item.getItem().clone()).lore(Arrays.asList("§7Price: §6" + Util.coinsAsString(item.getPrice()) + " Coins", "§c§lExpired!", "§0Id: " + item.getItemID(), "§7Leftclick to §aoffer §7again.", "§7Rightclick to §cremove §7it.")).build();
+                ItemStack itemStack = new ItemBuilder(item.getItem().clone()).lore(Arrays.asList("§7Price: §6" + item.getPrice() + " Coins", "§c§lExpired!", "§0Id: " + item.getItemID(), "§7Leftclick to §aoffer §7again.", "§7Rightclick to §cremove §7it.")).build();
                 inv.setItem(id, itemStack);
                 id++;
             } else {
-                ItemStack itemStack = new ItemBuilder(item.getItem().clone()).lore(Arrays.asList("§7Price: §6" + Util.coinsAsString(item.getPrice()) + " Coins", "§7Expires in: §c" + time, "§0Id: " + item.getItemID(), "§7Rightclick to §cremove §7it.")).build();
+                ItemStack itemStack = new ItemBuilder(item.getItem().clone()).lore(Arrays.asList("§7Price: §6" + item.getPrice() + " Coins", "§7Expires in: §c" + time, "§0Id: " + item.getItemID(), "§7Rightclick to §cremove §7it.")).build();
                 inv.setItem(id, itemStack);
                 id++;
             }
@@ -114,7 +112,7 @@ public class AuctionManager {
         for(AuctionItem marketItem : items.getPage(0)) {
             if(marketItem.getItem() == null) continue;
             String time = getTime(marketItem.getExpires());
-            ItemStack item = new ItemBuilder(marketItem.getItem().clone()).lore(Arrays.asList("§7Price: §6" + Util.coinsAsString(marketItem.getPrice()) + " Coins", "§7Expires in: §c" + time, "§0Id: " + marketItem.getItemID(), "§7Seller: §e" + marketItem.getName())).build();
+            ItemStack item = new ItemBuilder(marketItem.getItem().clone()).lore(Arrays.asList("§7Price: §6" + marketItem.getPrice() + " Coins", "§7Expires in: §c" + time, "§0Id: " + marketItem.getItemID(), "§7Seller: §e" + marketItem.getName())).build();
             inv.setItem(i, item);
             i++;
         }

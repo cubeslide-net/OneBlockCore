@@ -48,7 +48,7 @@ public class AuctionListener implements Listener {
                 for (AuctionItem ai : items.getPage((getNumber(Objects.requireNonNull(e.getInventory().getItem(13))) - 1))) {
                     if (ai.getItem() == null) continue;
                     String time = AuctionManager.getTime(ai.getExpires());
-                    ItemStack item = new ItemBuilder(ai.getItem().clone()).lore(Arrays.asList("§7Price§8: §6" + Util.coinsAsString(ai.getPrice()) + " §7Coins", "§7Expires in§8: §c" + time, "§0Id: " + ai.getItemID(), "§7Offer from §e" + ai.getName())).build();
+                    ItemStack item = new ItemBuilder(ai.getItem().clone()).lore(Arrays.asList("§7Price§8: §6" + ai.getPrice() + " §7Coins", "§7Expires in§8: §c" + time, "§0Id: " + ai.getItemID(), "§7Offer from §e" + ai.getName())).build();
                     e.getInventory().setItem(id, item);
                     id++;
                 }
@@ -67,7 +67,7 @@ public class AuctionListener implements Listener {
                 for (AuctionItem auctionItem : items.getPage((getNumber(Objects.requireNonNull(e.getInventory().getItem(13))) - 1))) {
                     if (auctionItem.getItem() == null) continue;
                     String time = AuctionManager.getTime(auctionItem.getExpires());
-                    ItemStack item = new ItemBuilder(auctionItem.getItem().clone()).lore(Arrays.asList("§7Price§8: §6" + Util.coinsAsString(auctionItem.getPrice()) + " §7Coins", "§7Expires in§8: §c" + time, "§0Id: " + auctionItem.getItemID(), "§7Offer from §e" + auctionItem.getName())).build();
+                    ItemStack item = new ItemBuilder(auctionItem.getItem().clone()).lore(Arrays.asList("§7Price§8: §6" + auctionItem.getPrice() + " §7Coins", "§7Expires in§8: §c" + time, "§0Id: " + auctionItem.getItemID(), "§7Offer from §e" + auctionItem.getName())).build();
                     e.getInventory().setItem(id, item);
                     id++;
                 }
