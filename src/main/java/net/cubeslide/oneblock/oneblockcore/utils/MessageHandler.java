@@ -1,13 +1,5 @@
 package net.cubeslide.oneblock.oneblockcore.utils;
 
-import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.Arrays;
-
 public class MessageHandler {
 
 
@@ -17,6 +9,7 @@ public class MessageHandler {
     private static String noPlayer = "§cYou have to be a player to do that.";
     private static String playerNotFound = "§cThe target player could not be found.";
     private static String syntaxPrefix = "§cPlease use: §e/";
+    private static String playerNotEnoughCoins = "§cYou don't have enough coins.";
 
  
 
@@ -40,5 +33,9 @@ public class MessageHandler {
 
     public static String getSyntaxPrefix() {
         return syntaxPrefix;
+    }
+
+    public static String getPlayerNotEnoughCoins() {
+        return playerNotEnoughCoins;
     }
 }

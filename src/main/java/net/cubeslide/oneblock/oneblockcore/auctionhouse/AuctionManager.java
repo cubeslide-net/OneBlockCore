@@ -224,7 +224,7 @@ public class AuctionManager {
     }
 
     public static void intialize(boolean save){
-        File file = new File("plugins/HydroGame", "market.yml");
+        File file = new File("plugins/OneBlockCore", "auctionHouse.yml");
         FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
         if(!file.exists()) {
             try {

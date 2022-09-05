@@ -3,6 +3,9 @@ package net.cubeslide.oneblock.oneblockcore;
 import fr.mrmicky.fastboard.FastBoard;
 import lombok.Getter;
 import me.clip.placeholderapi.PlaceholderAPI;
+import net.cubeslide.oneblock.oneblockcore.auctionhouse.AuctionListener;
+import net.cubeslide.oneblock.oneblockcore.auctionhouse.AuctionManager;
+import net.cubeslide.oneblock.oneblockcore.commands.AuctionHouseCommand;
 import net.cubeslide.oneblock.oneblockcore.commands.SpawnCommand;
 import net.cubeslide.oneblock.oneblockcore.commands.TpaCommand;
 import net.cubeslide.oneblock.oneblockcore.commands.VanishCommand;
@@ -40,15 +43,18 @@ public final class OneBlockCore extends JavaPlugin {
         final PluginManager pluginManager = getServer().getPluginManager();
         instance = this;
         boards = new HashMap<>();
+        AuctionManager.intialize(false);
 
         pluginManager.registerEvents(new PlayerEventListener(), this);
         pluginManager.registerEvents(new WorldEventListener(), this);
+        pluginManager.registerEvents(new AuctionListener(), this);
 
         getCommand("spawn").setExecutor(new SpawnCommand());
         getCommand("tpa").setExecutor(new TpaCommand());
         getCommand("tpaccept").setExecutor(new TpaCommand());
         getCommand("tpdeny").setExecutor(new TpaCommand());
         getCommand("vanish").setExecutor(new VanishCommand());
+        getCommand("auctionhouse").setExecutor(new AuctionHouseCommand());
 
         new BukkitRunnable() {
             @Override
@@ -62,7 +68,7 @@ public final class OneBlockCore extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+        AuctionManager.intialize(true);
 
     }
 
