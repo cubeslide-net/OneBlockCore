@@ -14,3 +14,5 @@ commands:
     aliases: tpno
   visit:
     permission: OneBlockCore.visit.others
+  auctionhouse:
+    aliases: [ah, markt, market, auction, house]
