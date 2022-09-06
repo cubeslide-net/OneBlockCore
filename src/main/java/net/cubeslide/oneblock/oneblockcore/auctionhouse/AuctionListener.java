@@ -193,48 +193,45 @@ public class AuctionListener implements Listener {
                         cacheDisplayName.put(player, e.getCurrentItem().getItemMeta().getDisplayName());
                     }
                     new AnvilGUI.Builder()
-                            .onComplete(new BiFunction<Player, String, AnvilGUI.Response>() {
-                                @Override
-                                public AnvilGUI.Response apply(Player player, String s) {
+                            .onComplete((player1, s) -> {
 
-                                    String am = s.replace("Coins", "").replace(" ", "");
-                                    if (!Util.isInt(am)) {
-                                        player.sendMessage(MessageHandler.getPrefix() + "§cYou must enter a number.");
-                                        return AnvilGUI.Response.text(s);
-                                    }
-
-                                    int amount = Integer.parseInt(am);
-
-                                    if (amount < 5) {
-                                        player.sendMessage(MessageHandler.getPrefix() + "The minimum amount is §65 Coins§7.");
-                                        return AnvilGUI.Response.text(s);
-                                    }
-                                    Calendar c = Calendar.getInstance();
-                                    c.setTimeZone(TimeZone.getTimeZone("CET"));
-                                    int jahr = c.get(Calendar.YEAR);
-                                    int monat = c.get(Calendar.MONTH);
-                                    int tag = c.get(Calendar.DAY_OF_MONTH);
-                                    int stunde = c.get(Calendar.HOUR_OF_DAY);
-                                    int minute = c.get(Calendar.MINUTE);
-                                    int sekunde = c.get(Calendar.SECOND);
-                                    int stunden = stunde + 24;
-                                    c.set(jahr, monat, tag, stunden, minute, sekunde);
-
-                                    long expires = c.getTimeInMillis();
-
-                                    String name = null;
-                                    if (cacheDisplayName.containsKey(player)) {
-                                        name = cacheDisplayName.get(player);
-                                        cacheDisplayName.remove(player);
-                                    }
-
-                                    AuctionManager.addAuctionItem(player, new ItemBuilder(e.getCurrentItem().clone()).name(name).build(), amount, expires);
-                                    player.getInventory().setItem(e.getSlot(), null);
-                                    Bukkit.getScheduler().scheduleSyncDelayedTask(OneBlockCore.getInstance(), () -> {
-                                        player.openInventory(AuctionManager.getPlayerAuctionMenu(player));
-                                    }, 3L);
-                                    return AnvilGUI.Response.close();
+                                String am = s.replace("Coins", "").replace(" ", "");
+                                if (!Util.isInt(am)) {
+                                    player1.sendMessage(MessageHandler.getPrefix() + "§cYou must enter a number.");
+                                    return AnvilGUI.Response.text(s);
                                 }
+
+                                int amount = Integer.parseInt(am);
+
+                                if (amount < 5) {
+                                    player1.sendMessage(MessageHandler.getPrefix() + "The minimum amount is §65 Coins§7.");
+                                    return AnvilGUI.Response.text(s);
+                                }
+                                Calendar c = Calendar.getInstance();
+                                c.setTimeZone(TimeZone.getTimeZone("CET"));
+                                int jahr = c.get(Calendar.YEAR);
+                                int monat = c.get(Calendar.MONTH);
+                                int tag = c.get(Calendar.DAY_OF_MONTH);
+                                int stunde = c.get(Calendar.HOUR_OF_DAY);
+                                int minute = c.get(Calendar.MINUTE);
+                                int sekunde = c.get(Calendar.SECOND);
+                                int stunden = stunde + 24;
+                                c.set(jahr, monat, tag, stunden, minute, sekunde);
+
+                                long expires = c.getTimeInMillis();
+
+                                String name = null;
+                                if (cacheDisplayName.containsKey(player1)) {
+                                    name = cacheDisplayName.get(player1);
+                                    cacheDisplayName.remove(player1);
+                                }
+
+                                AuctionManager.addAuctionItem(player1, new ItemBuilder(e.getCurrentItem().clone()).name(name).build(), amount, expires);
+                                player1.getInventory().setItem(e.getSlot(), null);
+                                Bukkit.getScheduler().scheduleSyncDelayedTask(OneBlockCore.getInstance(), () -> {
+                                    player1.openInventory(AuctionManager.getPlayerAuctionMenu(player1));
+                                }, 3L);
+                                return AnvilGUI.Response.close();
                             }).preventClose().text("Preis").item(new ItemBuilder(e.getCurrentItem().clone()).name("0 Coins").build()).text("Price").plugin(OneBlockCore.getInstance()).open(player);
                     return;
                 }
