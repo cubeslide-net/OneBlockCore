@@ -168,12 +168,6 @@ public class AuctionManager {
         auctionItems.add(new AuctionItem(player.getUniqueId(), player.getName(), itemStack, price, expires));
     }
 
-    public static void removeAuctionItem(Player giveTo, AuctionItem item) {
-        if (auctionItems.contains(item)) {
-            auctionItems.remove(item);
-            giveTo.getInventory().addItem(item.getItem());
-        }
-    }
 
     public static List<AuctionItem> getAuctionItemsForUUID(UUID uuid) {
         List<AuctionItem> items = new ArrayList<>();
@@ -294,6 +288,13 @@ public class AuctionManager {
                 continue;
             }
             auctionItems.add(new AuctionItem(owner, name, is, price, expires));
+        }
+    }
+
+    public static void removeAuctionItem(Player giveTo, AuctionItem item) {
+        if (auctionItems.contains(item)) {
+            auctionItems.remove(item);
+            giveTo.getInventory().addItem(item.getItem());
         }
     }
 }
