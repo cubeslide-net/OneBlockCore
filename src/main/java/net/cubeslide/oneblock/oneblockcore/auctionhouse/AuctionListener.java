@@ -161,17 +161,6 @@ public class AuctionListener implements Listener {
                                     }, 3L);
                                     return;
                                 }
-                                if (e.isRightClick()) {
-                                    if (Util.haveStorage(player) == 0) {
-                                        e.getView().close();
-                                        player.sendMessage(MessageHandler.getPrefix() + "§cYou didn't have enough space in your inventory.");
-                                        return;
-                                    }
-                                    AuctionManager.removeAuctionItem(player, item);
-                                    player.playSound(player.getLocation(), Sound.BLOCK_WOODEN_BUTTON_CLICK_ON, 1F, 1F);
-                                    player.openInventory(AuctionManager.getPlayerAuctionMenu(player));
-                                    return;
-                                }
                             }
                             if (e.isRightClick()) {
                                 if (Util.haveStorage(player) == 0) {
