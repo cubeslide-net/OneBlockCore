@@ -46,8 +46,7 @@ public class AuctionListener implements Listener {
                 int id = 18;
                 for (AuctionItem ai : items.getPage((getNumber(Objects.requireNonNull(e.getInventory().getItem(13))) - 1))) {
                     if (ai.getItem() == null) continue;
-                    String time = AuctionManager.getTime(ai.getExpires());
-                    ItemStack item = new ItemBuilder(ai.getItem().clone()).lore(Arrays.asList("§7Price§8: §6" + ai.getPrice() + " §7Coins", "§7Expires in§8: §c" + time, "§0Id: " + ai.getItemID(), "§7Offer from §e" + ai.getName())).build();
+                    ItemStack item = new ItemBuilder(ai.getItem().clone()).lore(Arrays.asList("§7Price§8: §6" + ai.getPrice() + " §7Coins", "§0Id: " + ai.getItemID(), "§7Offer from §e" + ai.getName())).build();
                     e.getInventory().setItem(id, item);
                     id++;
                 }
@@ -65,8 +64,7 @@ public class AuctionListener implements Listener {
                 int id = 18;
                 for (AuctionItem auctionItem : items.getPage((getNumber(Objects.requireNonNull(e.getInventory().getItem(13))) - 1))) {
                     if (auctionItem.getItem() == null) continue;
-                    String time = AuctionManager.getTime(auctionItem.getExpires());
-                    ItemStack item = new ItemBuilder(auctionItem.getItem().clone()).lore(Arrays.asList("§7Price§8: §6" + auctionItem.getPrice() + " §7Coins", "§7Expires in§8: §c" + time, "§0Id: " + auctionItem.getItemID(), "§7Offer from §e" + auctionItem.getName())).build();
+                    ItemStack item = new ItemBuilder(auctionItem.getItem().clone()).lore(Arrays.asList("§7Price§8: §6" + auctionItem.getPrice() + " §7Coins", "§0Id: " + auctionItem.getItemID(), "§7Offer from §e" + auctionItem.getName())).build();
                     e.getInventory().setItem(id, item);
                     id++;
                 }
@@ -79,11 +77,7 @@ public class AuctionListener implements Listener {
                         String id = lore.split(" ")[1];
                         AuctionItem item = AuctionManager.getItemFromId(id, false);
                         if (item == null) {
-                            player.sendMessage(MessageHandler.getPrefix() + "§cThis item is sold or is expired.");
-                            return;
-                        }
-                        if (item.isExpired()) {
-                            player.sendMessage(MessageHandler.getPrefix() + "§cThis item is expired.");
+                            player.sendMessage(MessageHandler.getPrefix() + "§cThis item is sold.");
                             return;
                         }
                         if (item.getOwner().equals(player.getUniqueId())) return;
@@ -135,33 +129,6 @@ public class AuctionListener implements Listener {
                             String id = lore.split(" ")[1];
                             AuctionItem item = AuctionManager.getItemFromId(id, true);
                             if (item == null) continue;
-                            if (item.isExpired()) {
-                                if (e.isLeftClick()) {
-                                    Calendar c = Calendar.getInstance();
-                                    c.setTimeZone(TimeZone.getTimeZone("CET"));
-                                    int jahr = c.get(Calendar.YEAR);
-                                    int monat = c.get(Calendar.MONTH);
-                                    int tag = c.get(Calendar.DAY_OF_MONTH);
-                                    int stunde = c.get(Calendar.HOUR_OF_DAY);
-                                    int minute = c.get(Calendar.MINUTE);
-                                    int sekunde = c.get(Calendar.SECOND);
-                                    int tage = tag + 7;
-                                    c.set(jahr, monat, tage, stunde, minute, sekunde);
-
-                                    long expires = c.getTimeInMillis();
-
-                                    item.setExpires(expires);
-                                    if (AuctionManager.expiredAuctionItems.contains(item)) {
-                                        AuctionManager.expiredAuctionItems.remove(item);
-                                    }
-                                    AuctionManager.auctionItems.add(item);
-                                    player.playSound(player.getLocation(), Sound.BLOCK_WOODEN_BUTTON_CLICK_ON, 1F, 1F);
-                                    Bukkit.getScheduler().scheduleSyncDelayedTask(OneBlockCore.getInstance(), () -> {
-                                        player.openInventory(AuctionManager.getPlayerAuctionMenu(player));
-                                    }, 3L);
-                                    return;
-                                }
-                            }
                             if (e.isRightClick()) {
                                 if (Util.haveStorage(player) == 0) {
                                     e.getView().close();
@@ -246,7 +213,7 @@ public class AuctionListener implements Listener {
                         String id = lore.split(" ")[1];
                         AuctionItem item = AuctionManager.getItemFromId(id, false);
                         if (item == null) {
-                            player.sendMessage(MessageHandler.getPrefix() + "§cThis item is sold or is expired.");
+                            player.sendMessage(MessageHandler.getPrefix() + "§cThis item is sold.");
                             e.getView().close();
                             return;
                         }
@@ -257,11 +224,6 @@ public class AuctionListener implements Listener {
                         }
                         if (Util.haveStorage(player) == 0) {
                             player.sendMessage(MessageHandler.getPrefix() + "§cYou didn't have enough space in your inventory.");
-                            e.getView().close();
-                            return;
-                        }
-                        if (item.isExpired()) {
-                            player.sendMessage(MessageHandler.getPrefix() + "§cThis item is expired.");
                             e.getView().close();
                             return;
                         }

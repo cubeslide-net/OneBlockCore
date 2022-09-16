@@ -70,16 +70,9 @@ public class AuctionManager {
             } else if(id == 43) {
                 break;
             }
-            String time = getTime(item.getExpires());
-            if(time.equalsIgnoreCase("Expired")) {
-                ItemStack itemStack = new ItemBuilder(item.getItem().clone()).lore(Arrays.asList("§7Price: §6" + item.getPrice() + " Coins", "§c§lExpired!", "§0Id: " + item.getItemID(), "§7Leftclick to §aoffer §7again.", "§7Rightclick to §cremove §7it.")).build();
+                ItemStack itemStack = new ItemBuilder(item.getItem().clone()).lore(Arrays.asList("§7Price: §6" + item.getPrice() + " Coins", "§0Id: " + item.getItemID(), "§7Rightclick to §cremove §7it.")).build();
                 inv.setItem(id, itemStack);
                 id++;
-            } else {
-                ItemStack itemStack = new ItemBuilder(item.getItem().clone()).lore(Arrays.asList("§7Price: §6" + item.getPrice() + " Coins", "§7Expires in: §c" + time, "§0Id: " + item.getItemID(), "§7Rightclick to §cremove §7it.")).build();
-                inv.setItem(id, itemStack);
-                id++;
-            }
         }
         return inv;
     }
@@ -111,8 +104,7 @@ public class AuctionManager {
 
         for(AuctionItem marketItem : items.getPage(0)) {
             if(marketItem.getItem() == null) continue;
-            String time = getTime(marketItem.getExpires());
-            ItemStack item = new ItemBuilder(marketItem.getItem().clone()).lore(Arrays.asList("§7Price: §6" + marketItem.getPrice() + " Coins", "§7Expires in: §c" + time, "§0Id: " + marketItem.getItemID(), "§7Seller: §e" + marketItem.getName())).build();
+            ItemStack item = new ItemBuilder(marketItem.getItem().clone()).lore(Arrays.asList("§7Price: §6" + marketItem.getPrice() + " Coins", "§0Id: " + marketItem.getItemID(), "§7Seller: §e" + marketItem.getName())).build();
             inv.setItem(i, item);
             i++;
         }
@@ -131,44 +123,6 @@ public class AuctionManager {
             builder.append(pattern.charAt(random.nextInt(pattern.length())));
         }
         return builder.toString();
-    }
-
-    public static String getTime(long expires) {
-        long d = expires / 1000 - System.currentTimeMillis() / 1000;
-        int seconds = (int) d;
-        String s = "Unknown";
-        int hours = seconds / 3600;
-        int days = seconds / 86400;
-        int minutes = seconds / 60;
-        if(System.currentTimeMillis() > expires) {
-            return "Expired";
-        }
-        if(days != 0) {
-            if(days == 1) {
-                s = days + " day";
-            } else {
-                s = days + " days";
-            }
-        } else if(hours != 0) {
-            if(hours == 1) {
-                s = hours + " hour";
-            } else {
-                s = hours + " hours";
-            }
-        } else if(minutes != 0) {
-            if(minutes == 1) {
-                s = minutes + " minute";
-            } else {
-                s = minutes + " minutes";
-            }
-        } else {
-            if(seconds == 1) {
-                s = seconds + " second";
-            } else {
-                s = seconds + " seconds";
-            }
-        }
-        return s;
     }
 
     public static void addAuctionItem(Player player, ItemStack itemStack, int price, long expires) {
