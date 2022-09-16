@@ -138,11 +138,18 @@ public class AuctionManager {
         int seconds = (int) d;
         String s = "Unknown";
         int hours = seconds / 3600;
+        int days = seconds / 86400;
         int minutes = seconds / 60;
         if(System.currentTimeMillis() > expires) {
             return "Expired";
         }
-        if(hours != 0) {
+        if(days != 0) {
+            if(days == 1) {
+                s = days + " day";
+            } else {
+                s = days + " days";
+            }
+        } else if(hours != 0) {
             if(hours == 1) {
                 s = hours + " hour";
             } else {

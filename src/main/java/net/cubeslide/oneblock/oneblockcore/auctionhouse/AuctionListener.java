@@ -145,8 +145,8 @@ public class AuctionListener implements Listener {
                                     int stunde = c.get(Calendar.HOUR_OF_DAY);
                                     int minute = c.get(Calendar.MINUTE);
                                     int sekunde = c.get(Calendar.SECOND);
-                                    int stunden = stunde + 24;
-                                    c.set(jahr, monat, tag, stunden, minute, sekunde);
+                                    int tage = tag + 7;
+                                    c.set(jahr, monat, tage, stunde, minute, sekunde);
 
                                     long expires = c.getTimeInMillis();
 
@@ -225,8 +225,8 @@ public class AuctionListener implements Listener {
                                 int stunde = c.get(Calendar.HOUR_OF_DAY);
                                 int minute = c.get(Calendar.MINUTE);
                                 int sekunde = c.get(Calendar.SECOND);
-                                int stunden = stunde + 24;
-                                c.set(jahr, monat, tag, stunden, minute, sekunde);
+                                int tage = tag + 7;
+                                c.set(jahr, monat, tage, stunde, minute, sekunde);
 
                                 long expires = c.getTimeInMillis();
 
